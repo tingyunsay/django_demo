@@ -8,29 +8,18 @@
 
 </style>
 <body>
-<p>请输入两个数字</p>
-<form action="/add/" method="get">
-    a: <input type="text" id="a" name="a"> <br>
-    b: <input type="text" id="b" name="b"> <br>
-    <p>result: <span id='result'></span></p>
-    <button type="button" id='sum'>提交</button>
-</form>
- 
 <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
 <div class = "all">
-	<div class = "a1" align = "left" height = 10%>
+	<div class = "a1" align = "center" height = 10%>
 		<form  action = "/read/" method = "get">
-			<table align = "left" height = 10% width = 20%>
+			<table align = "left" height = 10% width = 100%>
 				<tr>
-					<td>用户名:</td><td><input id = "user" type = "text"></input></td><br/>
+				<td align = "right">请输入您要查询的关键词:</td><td><input id = "user" type = "text"></input></td><br/>
 				</tr>
-				<tr>
-					<td>密码:</td><td><input id = "pass" type = "password"></input></td><br/>
-				</tr>
-				<p>你要数据如下:<span id = 'res'></span></p>
-				<tr><th colspan = 2><button type = "button" id = "res1" >提交</input></th></tr>
+				<tr><th colspan = 2><button type = "button" id = "res1" >搜索</input></th></tr>
+				<tr><td>你要数据如下:<span id = 'res'></span></td></tr>
 			</table>
 		</form>
 	</div><br/><br/><br/><br/><br/><br/>
