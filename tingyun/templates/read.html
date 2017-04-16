@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>show db</title>
+</head>
+<style type = "text/css">
+</style>
+<body>
+
+<p><span id = "res">  </span> </p>
+{% for i in res %}
+{{ i.artist_info }}
+{{ i.url }}
+{{ i.site_name }}
+{{" " | escape|linebreaks}}
+{% endfor %}
+</body>
+
