@@ -6,6 +6,8 @@ from django.http import HttpResponse
 # Create your views here.
 
 from hong.models import Copyright
+def home(request):
+	return render(request,'home.html')
 
 def late_hong(request):
 	#if request.GET.has_key('user'):

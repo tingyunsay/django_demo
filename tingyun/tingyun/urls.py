@@ -21,6 +21,7 @@ from hong import views as hong_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$' , views.home),
+    url(r'^home/' , hong_views.home),
     url(r'^hong/' , hong_views.late_hong),
     url(r'^add/' , hong_views.add),
     url(r'^read/' , hong_views.read_db1),
