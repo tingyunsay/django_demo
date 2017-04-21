@@ -4,8 +4,11 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
-
 from hong.models import Copyright
+import pymysql
+import pandas
+
+
 def home(request):
 	return render(request,'home.html')
 
@@ -29,14 +32,32 @@ def add(request):
 #读取数据函数
 def read_db1(request):
 	if request.GET.has_key('user'):
-	#	print "11111111111"
 		name = request.GET['user']
-	#	print name
 		res = Copyright.objects.order_by(name)
 		#这个return是讲数据填充到了模板中,然后再返回的....我真是...
 		return render(request,'read.html',{'res':res[:2]})
 	#return HttpResponse(res)
 	else:
 		return HttpResponse("请检查输入是否有错误.")
+
+def read_index(request):
+	if request.GET.has_key('search'):
+		name = request.GET['search']
+		print name,":type = ",type(name)
+		con1 = pymysql.connect(host='127.0.0.1', port=9306, user="root", passwd="liaohong", db="tingyun",charset="utf8")
+		with con1.cursor(pymysql.cursors.DictCursor) as cur:
+			cur.execute("select * from tingyun_index where match('{keyword}') limit 100".format(keyword = name))
+			#cur.execute("select * from tingyun_index where match('薛之谦') limit 100")
+			res = cur.fetchall()
+		return render(request,'read.html',{'res':res})
+	else:
+		return HttpResponse("您要检索的关键词不存在")
+		
+		
+
+	
+	
+
+
 
 

@@ -24,7 +24,8 @@ urlpatterns = [
     url(r'^home/' , hong_views.home),
     url(r'^hong/' , hong_views.late_hong),
     url(r'^add/' , hong_views.add),
-    url(r'^read/' , hong_views.read_db1),
+    #url(r'^read/' , hong_views.read_db1),
+    url(r'^read/' , hong_views.read_index),
 
 ]
 

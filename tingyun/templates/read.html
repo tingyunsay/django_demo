@@ -8,12 +8,17 @@
 </style>
 <body>
 
-<p><span id = "res">  </span> </p>
-{% for i in res %}
+<p><span id = "res1">  </span> </p>
+{% for i in res1 %}
 {{ i.artist_info }}
 {{ i.url }}
 {{ i.site_name }}
 {{" " | escape|linebreaks}}
 {% endfor %}
+
+<p><span>
+{{ res }}
+</span></p>
+
 </body>
 

@@ -27,7 +27,7 @@
     $(document).ready(function(){
       $("#res1").click(function(){
         var a = $("#user").val();
-        $.get("/read/",{'user':a}, function(ret){
+        $.get("/read/",{'search':a}, function(ret){
             $('#res').html(ret)
         })
       });
