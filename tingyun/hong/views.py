@@ -55,8 +55,10 @@ def read_index(request):
 		if len(res) > 1:
 			map(lambda x:res_id.append(x['id']) , res)
 			res_id = tuple(res_id)
-		else:
+		elif len(res) == 1:
 			res_id = "({name})".format(name=res[0]['id'])
+		else:
+			res_id = None
 		if res_id:
 			cursor.execute(sql_exec.format(oid=res_id))
 			result = cursor.fetchall()
