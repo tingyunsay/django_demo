@@ -54,11 +54,13 @@ def read_index(request):
 		sql_exec = "select * from copyright where id in {oid};"
 		res_id = []
 		map(lambda x:res_id.append(x['id']) , res)
-		print sql_exec.format(oid=tuple(res_id))
-		cursor.execute(sql_exec.format(oid=tuple(res_id)))
-		result = cursor.fetchall()
-
-		return render(request,'read.html',{'res':result})
+		if res_id:
+			cursor.execute(sql_exec.format(oid=tuple(res_id)))
+			result = cursor.fetchall()
+			return render(request,'read.html',{'res':result})
+		else:
+			result = "没有和输入词相关的内容."
+			return render(request,'error.html',{'res':result})
 	else:
 		return HttpResponse("您要检索的关键词不存在")
 		

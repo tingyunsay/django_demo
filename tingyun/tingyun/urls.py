@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from . import views
 from hong import views as hong_views
+from django.conf.urls import * 
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,7 +28,6 @@ urlpatterns = [
     url(r'^add/' , hong_views.add),
     #url(r'^read/' , hong_views.read_db1),
     url(r'^read/' , hong_views.read_index),
-
 ]
 
 
