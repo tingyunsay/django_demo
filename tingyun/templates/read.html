@@ -5,6 +5,30 @@
 <title>show db</title>
 </head>
 <style type = "text/css">
+table.show {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+table.show th {
+    background-color:#c3dde0;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+table.show tr {
+    background-color:#d4e3e5;
+}
+table.show td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
 </style>
 <body>
 
@@ -15,10 +39,37 @@
 {{ i.site_name }}
 {{" " | escape|linebreaks}}
 {% endfor %}
-
+<div >
+<table class = "show" width = "100%">
+<tr>
+	<td class="tt1">编号</td>
+	<td class="tt2">歌曲名字</td>
+	<td class="tt3">所属艺人</td>
+	<td class="tt4">版权所属</td>
+	<td class="tt5">分类标签</td>
+	<td class="tt6">语言</td>
+	<td class="tt7">出版日期</td>
+	<td class="tt8">所属专辑</td>
+	<td class="tt9">平台来源</td>
+</tr>
 <p><span>
-{{ res }}
+{% for i in res %}
+<tr>
+	<td class="t1">{{ i.0 }}</td>
+	<td class="t2">{{ i.5 }}</td>
+	<td class="t3">{{ i.2 }}</td>
+	<td class="t4">{{ i.7 }}</td>
+	<td class="t5">{{ i.9 }}</td>
+	<td class="t6">{{ i.4 }}</td>
+	<td class="t7">{{ i.10 }}</td>
+	<td class="t8">{{ i.11 }}</td>
+	<td class="t9">{{ i.3 }}</td>
+</tr>
+{{" " | escape|linebreaks}}
+{% endfor %}
 </span></p>
+</table>
+</div>
 
 </body>
 

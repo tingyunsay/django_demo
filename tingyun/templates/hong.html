@@ -14,14 +14,16 @@
 <div class = "all">
 	<div class = "a1" align = "center" height = 10%>
 		<form  action = "/hong/" method = "get">
-			<table align = "left" height = 10% width = 100%>
+			<table align = "left" height = 10% width = 100% border = "0">
 				<tr>
-				<td align = "right">请输入您要查询的关键词:</td><td><input id = "user" type = "text"></input></td><br/>
-				</tr>
-				<tr><th colspan = 2><button type = "button" id = "res1" >搜索</input></th></tr>
-				<tr><td>你要数据如下:<span id = 'res'></span></td></tr>
+				<td width = "42%" align = "right">请输入您要查询的关键词:</td>
+				<td width = "16%" align = "center"><input id = "user" type = "text"></input></td><br/>
+				<td width = "42%" align = "left" ><button type = "button" id = "res1" >搜索</input></td></tr>
 			</table>
 		</form>
+<table class = "return_table" width = "100%">	
+	<tr><td>您查找的相关数据如下:<span id = 'res'></span></td></tr>
+</table>
 	</div><br/><br/><br/><br/><br/><br/>
 <script>
     $(document).ready(function(){

@@ -34,22 +34,31 @@ def read_db1(request):
 	if request.GET.has_key('user'):
 		name = request.GET['user']
 		res = Copyright.objects.order_by(name)
-		#这个return是讲数据填充到了模板中,然后再返回的....我真是...
+		#这个return是将数据填充到了模板中,然后再返回的....我真是...
 		return render(request,'read.html',{'res':res[:2]})
-	#return HttpResponse(res)
 	else:
 		return HttpResponse("请检查输入是否有错误.")
 
+#读取传入的参数,使用索引检索相关项目,最后返回是mysql中的数据
 def read_index(request):
 	if request.GET.has_key('search'):
 		name = request.GET['search']
 		print name,":type = ",type(name)
+		#索引查询,拿取oid
 		con1 = pymysql.connect(host='127.0.0.1', port=9306, user="root", passwd="liaohong", db="tingyun",charset="utf8")
 		with con1.cursor(pymysql.cursors.DictCursor) as cur:
 			cur.execute("select * from tingyun_index where match('{keyword}') limit 100".format(keyword = name))
-			#cur.execute("select * from tingyun_index where match('薛之谦') limit 100")
 			res = cur.fetchall()
-		return render(request,'read.html',{'res':res})
+		con2 = pymysql.connect(host='127.0.0.1', port=3306, user="root", passwd="liaohong", db="tingyun",charset="utf8")
+		cursor = con2.cursor()
+		sql_exec = "select * from copyright where id in {oid};"
+		res_id = []
+		map(lambda x:res_id.append(x['id']) , res)
+		print sql_exec.format(oid=tuple(res_id))
+		cursor.execute(sql_exec.format(oid=tuple(res_id)))
+		result = cursor.fetchall()
+
+		return render(request,'read.html',{'res':result})
 	else:
 		return HttpResponse("您要检索的关键词不存在")
 		
