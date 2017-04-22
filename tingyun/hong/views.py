@@ -43,7 +43,6 @@ def read_db1(request):
 def read_index(request):
 	if request.GET.has_key('search'):
 		name = request.GET['search']
-		print name,":type = ",type(name)
 		#索引查询,拿取oid
 		con1 = pymysql.connect(host='127.0.0.1', port=9306, user="root", passwd="liaohong", db="tingyun",charset="utf8")
 		with con1.cursor(pymysql.cursors.DictCursor) as cur:
@@ -53,9 +52,13 @@ def read_index(request):
 		cursor = con2.cursor()
 		sql_exec = "select * from copyright where id in {oid};"
 		res_id = []
-		map(lambda x:res_id.append(x['id']) , res)
+		if len(res) > 1:
+			map(lambda x:res_id.append(x['id']) , res)
+			res_id = tuple(res_id)
+		else:
+			res_id = "({name})".format(name=res[0]['id'])
 		if res_id:
-			cursor.execute(sql_exec.format(oid=tuple(res_id)))
+			cursor.execute(sql_exec.format(oid=res_id))
 			result = cursor.fetchall()
 			return render(request,'read.html',{'res':result})
 		else:
