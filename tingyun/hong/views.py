@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from hong.sphinxapi_core import *
+import sys,time
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
@@ -29,6 +30,61 @@ def add(request):
 	#return HttpResponse(str(int(a)+int(b)))
 	return HttpResponse(a)
 
+def read_db_coreseek(request):
+	if request.GET.has_key('search'):
+		name = request.GET['search']
+		print name,type(name)
+		q = name
+		#经过网页传输一次,所有的数据都成了unicode,需要转换成str才能正常使用
+		mode = SPH_MATCH_ALL
+		host = str('localhost')
+		port = 9312
+		index = str('*')
+		filtercol = str('group_id')
+		filtervals = []
+		sortby = ''
+		groupby = ''
+		groupsort = str('@group desc')
+		limit = 0
+		
+		# do query
+		cl = SphinxClient()
+		cl.SetServer ( host, port )
+		cl.SetWeights ( [100, 1] )
+		cl.SetMatchMode ( mode )
+		if filtervals:
+			cl.SetFilter ( filtercol, filtervals )
+		if groupby:
+			cl.SetGroupBy ( groupby, SPH_GROUPBY_ATTR, groupsort )
+		if sortby:
+			cl.SetSortMode ( SPH_SORT_EXTENDED, sortby )
+		if limit:
+			cl.SetLimits ( 0, limit, max(limit,1000) )
+		res = cl.Query ( q, index )
+		res_id = []
+		map(lambda x:res_id.append(x['id']) , res['matches'])
+		con2 = pymysql.connect(host='127.0.0.1', port=3306, user="root", passwd="liaohong", db="tingyun",charset="utf8")
+		cursor = con2.cursor()
+		sql_exec = "select * from copyright where id in {oid};"
+		if len(res_id) > 1:
+			res_id = tuple(res_id)
+		elif len(res) == 1:
+			res_id = "({name})".format(name=res[0]['id'])
+		else:
+			res_id = None
+		if res_id:
+			cursor.execute(sql_exec.format(oid=res_id))
+			result = cursor.fetchall()
+			return render(request,'read.html',{'res':result})
+		else:
+			result = "没有和输入词相关的内容."
+			return render(request,'error.html',{'res':result})
+	else:
+		return HttpResponse("您要检索的关键词不存在")
+
+	
+
+
 #读取数据函数
 def read_db1(request):
 	if request.GET.has_key('user'):
@@ -40,6 +96,7 @@ def read_db1(request):
 		return HttpResponse("请检查输入是否有错误.")
 
 #读取传入的参数,使用索引检索相关项目,最后返回是mysql中的数据
+#第一版本,基于sphinx自带的分词方法 ----  现已废弃,使用第二种coreseek
 def read_index(request):
 	if request.GET.has_key('search'):
 		name = request.GET['search']
