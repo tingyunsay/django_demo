@@ -5,6 +5,7 @@ import sys,time
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
+from hong.record import record as R
 from hong.models import Copyright
 import pymysql
 import pandas
@@ -33,8 +34,8 @@ def add(request):
 def read_db_coreseek(request):
 	if request.GET.has_key('search'):
 		name = request.GET['search']
-		print name,type(name)
-		q = name
+		q = name.encode('utf-8')
+		R(q,request)
 		#经过网页传输一次,所有的数据都成了unicode,需要转换成str才能正常使用
 		mode = SPH_MATCH_ALL
 		host = str('localhost')
@@ -42,10 +43,10 @@ def read_db_coreseek(request):
 		index = str('*')
 		filtercol = str('group_id')
 		filtervals = []
-		sortby = ''
-		groupby = ''
+		sortby = str('')
+		groupby = str('')
 		groupsort = str('@group desc')
-		limit = 0
+		limit = 1000
 		
 		# do query
 		cl = SphinxClient()
