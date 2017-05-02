@@ -31,7 +31,43 @@ table.show td {
 }
 </style>
 <body>
+<p>
+{% for i in res %}
+<div>
+	<div id = "tingyun">
+		<h3><span>歌曲名称  </span>{{ i.5 }}</h3>
+		{{" " | escape|linebreaks}}
+		<span>专辑简介 : </span>
+		{% if i.12|length >= 200 %}
+			{{ i.12|slice:"200" }}......  
+		{% else %}
+			{{ i.12 }}
+		{% endif %}
+		<input id="oid" type="hidden" value = {{i.0}}></input>
+		<input type="button" value="阅读更多信息"></input>
+	</div>
+{{" " | escape|linebreaks}}
+{% endfor %}
+</div>
+</p>
 
+<script src="/static/jquery-1.12.1.min.js"></script>
+<script>
+	function AjaxSubmit(){
+           var res = $("#oid").val();
+           $.ajax({
+               url:"/hong/final_page/",
+               type:'POST',
+               data:{host:host,port:port},
+               success: function (arg) {
+               }
+           });
+        }
+
+</script>
+
+</body>
+<!--
 <p><span id = "res1">  </span> </p>
 {% for i in res1 %}
 {{ i.artist_info }}
@@ -53,7 +89,7 @@ table.show td {
 	<td class="tt9">平台来源</td>
 </tr>
 <p><span>
-{% for i in res %}
+{% for i in res2 %}
 <tr>
 	<td class="t1">{{ i.0 }}</td>
 	<td class="t2">{{ i.5 }}</td>
@@ -70,6 +106,6 @@ table.show td {
 </span></p>
 </table>
 </div>
-
 </body>
+-->
 
