@@ -47,6 +47,7 @@ $("body").keydown(function() {
 <script>
  $("body").keydown(function() {
              if (event.keyCode == "13") {//keyCode=13是回车键
+             //if (event.ctrlKey && event.which == "13") { //启用这句话,需要在function中将返回的值设成event
 		$.get("/read/",{'search':$("#user").val()}, function(ret){
 	  	  $('#res').html(ret)
     		 })

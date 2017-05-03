@@ -37,7 +37,16 @@ def detail_page(request):
 		result = cursor.fetchall()
 		return render(request,'detail_page.html',{'res':result})
 		#return HttpResponse(res)
-		
+	elif request.POST.has_key('a'):	
+		data = request.POST['a']
+		q = data.encode('utf-8')
+		con2 = pymysql.connect(host='127.0.0.1', port=3306, user="root", passwd="liaohong", db="tingyun",charset="utf8")
+		cursor = con2.cursor()
+		sql_exec = "select * from copyright where id = {oid}".format(oid = q)
+		cursor.execute(sql_exec)
+		result = cursor.fetchall()
+		return render(request,'detail_page.html',{'res':result})
+		#return HttpResponse(res)
 	else:
 		result = "没有和输入词相关的内容."
 		return render(request,'error.html',{'res':result})

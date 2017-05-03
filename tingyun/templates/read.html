@@ -31,11 +31,36 @@ table.show td {
 }
 </style>
 <body>
-
 <p>
+
+<div id = "tingyun">
 {% for i in res %}
-<div>
-	<div id = "tingyun">
+		<form action="/detail_page/" method="post">{% csrf_token %}  		
+		<h3><span>歌名  </span>{{ i.5 }}</h3>
+		{{" " | escape|linebreaks}}
+		<span>歌手 : </span>{{ i.2 }}
+		{{" " | escape|linebreaks}}
+		<span>简介 : </span>
+		{% if i.12|length >= 200 %}
+			{{ i.12|slice:"200" }}......  
+		{% else %}
+			{{ i.12 }}
+		{% endif %}
+
+		<input name = "a" id="oid" type="hidden" value = {{i.0}}></input>
+		<input type="submit" id="get_more" value = "get more ...."></a>
+		</form>
+		<!-- <input type="button" value="阅读更多信息" id="temp_id" onclick="get_oid();" data_id={{i.0}}></input> -->
+	
+{{" " | escape|linebreaks}}
+{% endfor %}
+
+</p>
+<!--
+<p>
+<div id = "tingyun">
+{% for i in res %}
+	<div>
 		<h3><span>歌名  </span>{{ i.5 }}</h3>
 		{{" " | escape|linebreaks}}
 		<span>歌手 : </span>{{ i.2 }}
@@ -47,7 +72,7 @@ table.show td {
 			{{ i.12 }}
 		{% endif %}
 		<input id="oid" type="hidden" value = {{i.0}}></input>
-		<input type="button" value="阅读更多信息" id="get_oid" onclick="get_oid();"></input>
+		<input type="button" value="阅读更多信息" id="temp_id" onclick="get_oid();" data_id={{i.0}}></input>
 	</div>
 {{" " | escape|linebreaks}}
 {% endfor %}
@@ -58,8 +83,11 @@ table.show td {
 <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
      function get_oid(){
-         var my_oid = $("#oid").val();
-         $.ajax({
+         //var my_oid = $("#oid").val();
+	 var my_oid = $("#temp_id").attr('data_id');
+         alert(my_oid);
+	 return;
+	 $.ajax({
              url:"/final_page/",
              type:'GET',
              data:{'oid':my_oid},
@@ -83,7 +111,7 @@ table.show td {
       });
     });
 </script>
-
+-->
 </body>
 <!--
 <p><span id = "res1">  </span> </p>
