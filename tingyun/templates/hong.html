@@ -6,9 +6,7 @@
 <meta charset="UTF-8">
 <title>tingyun</title>
 </head>
-<style type = "text/css">
-
-</style>
+<body id = "b">
 <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
@@ -19,7 +17,7 @@
 				<tr>
 				<td width = "42%" align = "right">请输入您要查询的关键词:</td>
 				<td width = "16%" align = "center"><input id = "user" type = "text"></input></td><br/>
-				<td width = "42%" align = "left" ><button type = "button" id = "res1" >搜索</input></td></tr>
+				<td width = "42%" align = "left" ><button type = "button" id = "res1">搜索</input></td></tr>
 			</table>
 		</form>
 <table class = "return_table" width = "100%">	
@@ -27,14 +25,34 @@
 </table>
 	</div><br/><br/><br/><br/><br/><br/>
 <script>
-    $(document).ready(function(){
+   $(document).ready(function(){
       $("#res1").click(function(){
-        var a = $("#user").val();
+        //alert($("#user").val())
+	var a = $("#user").val().replace(/[\r\n]/g,"");
         $.get("/read/",{'search':a}, function(ret){
-            $('#res').html(ret)
+	    $('#res').html(ret)
         })
       });
     });
+
+/*
+$("body").keydown(function() {
+             if (event.keyCode == "13") {
+                 $('#res1').click();
+		 //alert($("#user").val())
+             }
+         });
+*/
+</script>
+<script>
+ $("body").keydown(function() {
+             if (event.keyCode == "13") {//keyCode=13是回车键
+		$.get("/read/",{'search':$("#user").val()}, function(ret){
+	  	  $('#res').html(ret)
+    		 })
+             }
+         });
+
 </script>
 
 	<div class="a2" align = "left" width = 100%>
@@ -56,5 +74,17 @@
 <div>
 <a href = "/home/">call back</a>
 </div>
-
 </body>
+
+<!--
+    $.ajax({
+    	url: "/read/",
+    	type: "GET",
+	global: false,
+	data: {"search":$("#user").val()}
+	success: function (data) {
+		alert(data)
+	}
+    })
+-->
+

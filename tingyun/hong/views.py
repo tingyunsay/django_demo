@@ -25,6 +25,31 @@ def late_hong(request):
 		#return HttpResponse("这次我没连接数据库")
 		#res = Copyright.objects.order_by('-artist_info')
 	#return render(request,'hong.html')
+def detail_page(request):
+	if request.GET.has_key('a'):
+		#这里只有一条记录,直接查询即可
+		data = request.GET['a']
+		q = data.encode('utf-8')
+		con2 = pymysql.connect(host='127.0.0.1', port=3306, user="root", passwd="liaohong", db="tingyun",charset="utf8")
+		cursor = con2.cursor()
+		sql_exec = "select * from copyright where id = {oid}".format(oid = q)
+		cursor.execute(sql_exec)
+		result = cursor.fetchall()
+		return render(request,'detail_page.html',{'res':result})
+		#return HttpResponse(res)
+		
+	else:
+		result = "没有和输入词相关的内容."
+		return render(request,'error.html',{'res':result})
+
+def final_page(request):
+	if request.GET['oid']:
+		res = request.GET['oid']
+		#return render(request,'final_page.html',{'final_res':res})
+		return HttpResponse(res)
+	else:
+		return HttpResponse("对不起没有东西返回")
+
 def add(request):
 	a = request.GET['user']
 	#b = request.GET['b']
@@ -46,7 +71,7 @@ def read_db_coreseek(request):
 		sortby = str('')
 		groupby = str('')
 		groupsort = str('@group desc')
-		limit = 1000
+		limit = 5
 		
 		# do query
 		cl = SphinxClient()
@@ -76,6 +101,7 @@ def read_db_coreseek(request):
 		if res_id:
 			cursor.execute(sql_exec.format(oid=res_id))
 			result = cursor.fetchall()
+			cursor.close()
 			return render(request,'read.html',{'res':result})
 		else:
 			result = "没有和输入词相关的内容."

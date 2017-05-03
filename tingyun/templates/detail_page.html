@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>show db</title>
+</head>
+<style type = "text/css">
+</style>
+<body bgcolor="grey">
+
+<p>
+<h2 align = "center">Welcome To Detail Pgae</h2>
+
+
+
+
+<table >
+	<tr><td width = "10%" ><h3>歌曲编号</h3></td>  <td class="t1">{{ res.0.0 }}</td></tr>
+	<tr><td><h3>公司简介</h3></td>  <td class="t2">{{ res.0.1 }}</td></tr>
+	<tr><td><h3>歌手姓名</h3></td>  <td class="t3">{{ res.0.2 }}</td>
+	<tr><td><h3>版权来源</h3></td>  <td class="t4">{{ res.0.3 }}</td>
+	<tr><td><h3>歌曲语种</h3></td>  <td class="t5">{{ res.0.4 }}</td>
+	<tr><td><h3>歌曲名字</h3></td>  <td class="t6">{{ res.0.5 }}</td>
+	<tr><td><h3>出版公司</h3></td>  <td class="t7">{{ res.0.7 }}</td>
+	<tr><td><h3>公司标识</h3></td>  <td class="t8"><img src={{ res.0.8 }} alt="公司图标"></img></td>
+	<tr><td><h3>所属分类</h3></td>  <td class="t9">{{ res.0.9 }}</td>
+	<tr><td><h3>出版时间</h3></td>  <td class="t10">{{ res.0.10 }}</td>
+	<tr><td><h3>所属专辑</h3></td>  <td class="t11">{{ res.0.11 }}</td>
+	<tr><td valign="top"><h3>专辑简介</h3></td>  <td class="t12">{{ res.0.12 }}</td>
+
+{{" " | escape|linebreaks}}
+
+</table>
+
+<h3><a href = "/hong">返回检索页面</a></h3>
+</p>
+
+
+</body>
+
