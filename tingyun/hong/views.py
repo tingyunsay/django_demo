@@ -127,29 +127,22 @@ def read_db_coreseek(request):
 			res_id = "({name})".format(name=res[0]['id'])
 		else:
 			res_id = None
-		#if res_id:
-		cursor.execute(sql_exec.format(oid=res_id))
-		result = cursor.fetchall()
-		cursor.close()
+		if res_id:
+			cursor.execute(sql_exec.format(oid=res_id))
+			result = cursor.fetchall()
+			cursor.close()
 		
-		#添加分页代码
-		content = {}
-		contacts = list(result)
-		'''
-		paginator = Paginator(contacts, 3)
-		page = request.GET.get('page')
-		try:
-			contacts = paginator.page(page)
-		except PageNotAnInteger:
-			contacts = paginator.page(1)
-		except EmptyPage:
-			contacts = paginator.page(paginator.num_pages)
-		'''
-		content['a'] = contacts
-		content['b'] = q
-		#return HttpResponse(contacts)
-		return render(request,'read.html',{"res":content})
-		#return render(request,'read.html',{"res":json.dumps(contacts)})
+			content = {}
+			contacts = list(result)
+			content['a'] = contacts
+			content['b'] = q
+			#return HttpResponse(contacts)
+			return render(request,'read.html',{"res":content})
+			#return render(request,'read.html',{"res":json.dumps(contacts)})
+		else:
+			result = "你能不能像我一样成熟点,搜点我能找到的东西~~~"
+			return render(request,'error.html',{'res':result})
+
 	else:
 		result = "请输入关键词,否则无法检索."
 		return render(request,'error.html',{'res':result})
