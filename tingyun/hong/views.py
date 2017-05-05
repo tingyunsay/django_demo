@@ -64,7 +64,6 @@ def detail_page(request):
 		data = request.POST['a']
 		q = data.encode('utf-8')
 		name = request.POST.get('b')
-		print name
 		con2 = pymysql.connect(host='127.0.0.1', port=3306, user="root", passwd="liaohong", db="tingyun",charset="utf8")
 		cursor = con2.cursor()
 		sql_exec = "select * from copyright where id = {oid}".format(oid = q)

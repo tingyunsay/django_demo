@@ -1,45 +1,59 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap.min.css' %}" >
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap-theme.min.css' %}">
+<link rel="stylesheet" href="{% static 'tingyun/css/mycss.css' %}"
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>show db</title>
 </head>
-<style>
- href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">  
-
-   href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
-     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-
-       <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </style>
 <body>
+<nav class="navbar navbar-inverse" style="text-align: center;">
+	<div class="contain" style="display: inline-block;float: none;">
+		<p class="navbar-text" >欢迎使用tinyun音乐版权搜索</p>
+	</div>  
+</nav>
 
 <p>
 <h2 align = "center">Welcome To Detail Pgae</h2>
 
 
+	<script>$("#what img").addClass("carousel-inner img-responsive img-rounded");</script>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+    <div class="panel-heading">detail information</div>
+      <div class="panel-body">
 
-
-<table >
-	<tr><td width = "10%" ><h3>歌曲编号</h3></td>  <td class="t1">{{ res.a.0.0 }}</td></tr>
-	<tr><td><h3>公司简介</h3></td>  <td class="t2">{{ res.a.0.1 }}</td></tr>
-	<tr><td><h3>歌手姓名</h3></td>  <td class="t3">{{ res.a.0.2 }}</td>
-	<tr><td><h3>版权来源</h3></td>  <td class="t4">{{ res.a.0.3 }}</td>
-	<tr><td><h3>歌曲语种</h3></td>  <td class="t5">{{ res.a.0.4 }}</td>
-	<tr><td><h3>歌曲名字</h3></td>  <td class="t6">{{ res.a.0.5 }}</td>
-	<tr><td><h3>出版公司</h3></td>  <td class="t7">{{ res.a.0.7 }}</td>
-	<tr><td><h3>公司标识</h3></td>  <td class="t8"><img src={{ res.a.0.8 }} alt="公司图标"></img></td>
-	<tr><td><h3>所属分类</h3></td>  <td class="t9">{{ res.a.0.9 }}</td>
-	<tr><td><h3>出版时间</h3></td>  <td class="t10">{{ res.a.0.10 }}</td>
-	<tr><td><h3>所属专辑</h3></td>  <td class="t11">{{ res.a.0.11 }}</td>
-	<tr><td valign="top"><h3>专辑简介</h3></td>  <td class="t12">{{ res.a.0.12 }}</td>
+<table class ="table">
+	<tr><td width = "10%" >歌曲编号</td>  <td class="t1">{{ res.a.0.0 }}</td></tr>
+	<tr><td>公司简介</td>  <td class="t2">{{ res.a.0.1 }}</td></tr>
+	<tr><td>歌手姓名</td>  <td class="t3">{{ res.a.0.2 }}</td>
+	<tr><td>版权来源</td>  <td class="t4">{{ res.a.0.3 }}</td>
+	<tr><td>歌曲语种</td>  <td class="t5">{{ res.a.0.4 }}</td>
+	<tr><td>歌曲名字</td>  <td class="t6">{{ res.a.0.5 }}</td>
+	<tr><td>出版公司</td>  <td class="t7">{{ res.a.0.7 }}</td>
+	<tr><td>公司标识</td>  <td class="t8">
+			{% if res.a.0.8 == 'None' %}
+				<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+			{% else %}
+				<img id = "what" src={{ res.a.0.8 }} alt="公司图标" width="28"></img>
+			{% endif %}
+				</td>
+	<tr><td>所属分类</td>  <td class="t9">{{ res.a.0.9 }}</td>
+	<tr><td>出版时间</td>  <td class="t10">{{ res.a.0.10 }}</td>
+	<tr><td>所属专辑</td>  <td class="t11">{{ res.a.0.11 }}</td>
+	<tr><td valign="top">专辑简介</td>  <td class="t12">{{ res.a.0.12 }}</td>
 
 {{" " | escape|linebreaks}}
 
 </table>
 
-<h3><a href = "/hong/">返回检索页面</a></h3>
+
+</div>
+
+<a href = "/hong/">返回检索页面</a>
 </p>
 
 

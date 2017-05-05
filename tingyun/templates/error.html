@@ -1,3 +1,7 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap.min.css' %}" >
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap-theme.min.css' %}">
+<link rel="stylesheet" href="{% static 'tingyun/css/mycss.css' %}"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +12,14 @@
 </style>
 <body>
 <p>
-很不好意思,您来到了错误的异次元~~~
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    很不好意思,您来到了错误的异次元~~~
 {{" " | escape|linebreaks}}
-<h3>{{ res }}</h333>
+<h3>{{ res }}</h3>
+  </div>
+</div>
 
 </p>
 </body>
