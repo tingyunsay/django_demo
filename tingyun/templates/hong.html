@@ -1,5 +1,8 @@
 {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'tingyun/style.css' %}" />
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap.min.css' %}" >
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap-theme.min.css' %}">
+<link rel="stylesheet" href="{% static 'tingyun/css/mycss.css' %}"
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,21 +12,40 @@
 <body id = "b">
 <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
 
+<nav class="navbar navbar-inverse" style="text-align: center;">
+	<div class="contain" style="display: inline-block;float: none;">
+		<p class="navbar-text" >欢迎使用tinyun音乐版权搜索</p>
+	</div>  
+</nav>
+</div>
 
-<div class = "all">
-	<div class = "a1" align = "center" height = 10%>
+<div id = "tingyun">
+<div class = "all" >
+	<div class = "a1" align = "center" height = 10% >
 		<form  action = "/hong/" method = "get">
 			<table align = "left" height = 10% width = 100% border = "0">
 				<tr>
-				<td width = "42%" align = "right">请输入您要查询的关键词:</td>
-				<td width = "16%" align = "center"><input id = "user" type = "text"></input></td><br/>
-				<td width = "42%" align = "left" ><button type = "button" id = "res1">搜索</input></td></tr>
+				<td width = "40%" align = "right"></td>
+				<td width = "15%" align = "center">
+				<input id = "user"type="text" class="form-control" placeholder="请输入关键词" aria-describedby="basic-addon2" type = "text"></input></td><br/>
+				
+				<td width = "40%" align = "left" >
+					<button  type="button" class="btn btn-default btn-lg">
+					<span id="res1" class="glyphicon glyphicon-zoom-in" aria-hidden="true" style="font-size:13;"></span>
+					</button>
+					</td></tr>
 			</table>
 		</form>
 <table class = "return_table" width = "100%">	
-	<tr><td>您查找的相关数据如下:<span id = 'res'></span></td></tr>
+	<tr><td><span id = 'res'></span></td></tr>
 </table>
 	</div><br/><br/><br/><br/><br/><br/>
+
+<div>
+<ul class="nav nav-pills">
+<li role="presentation" ><a href = "/home/">call back</a></li>
+
+</ul>
 <script>
    $(document).ready(function(){
       $("#res1").click(function(){
@@ -56,25 +78,9 @@ $("body").keydown(function() {
 
 </script>
 
-	<div class="a2" align = "left" width = 100%>
-	{% for hong in copyright_list %}
-
-	A : {{ hong.artist_info }}
-	B : {{ hong.company }}
-	C : {{ hong.album_info }}
-	D : {{ hong.song_info }}
-	E : {{ hong.site_name }}
-	{{" " | escape|linebreaks}}
-	
-	{% endfor %}
-	</div>
 
 </div>
 
-
-<div>
-<a href = "/home/">call back</a>
-</div>
 </body>
 
 <!--

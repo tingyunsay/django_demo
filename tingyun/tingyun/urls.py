@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^read/' , hong_views.read_db_coreseek),
     url(r'^final_page/' , hong_views.final_page),
     url(r'^detail_page/' , hong_views.detail_page),
+    #url(r'^read/' , hong_views.cut_page),
+    url(r'^test/' , hong_views.test),
 ]
 
 

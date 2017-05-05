@@ -1,59 +1,86 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap.min.css' %}" >
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap-theme.min.css' %}">
+<link rel="stylesheet" href="{% static 'tingyun/css/mycss.css' %}"
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>show db</title>
 </head>
-<style type = "text/css">
-table.show {
-    font-family: verdana,arial,sans-serif;
-    font-size:11px;
-    color:#333333;
-    border-width: 1px;
-    border-color: #999999;
-    border-collapse: collapse;
-}
-table.show th {
-    background-color:#c3dde0;
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #a9c6c9;
-}
-table.show tr {
-    background-color:#d4e3e5;
-}
-table.show td {
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #a9c6c9;
-}
-</style>
+
 <body>
 <p>
 
+<script>
+/*var res = {{ res|safe }};
+console.log(res);
+return;
+*/
+</script>
+
+<div>
+<h3>测试版本,只显示前20条信息.....
+</h3>
+</div>
 <div id = "tingyun">
-{% for i in res %}
-		<form action="/detail_page/" method="post">{% csrf_token %}  		
-		<h3><span>歌名  </span>{{ i.5 }}</h3>
-		{{" " | escape|linebreaks}}
-		<span>歌手 : </span>{{ i.2 }}
-		{{" " | escape|linebreaks}}
-		<span>简介 : </span>
+
+<input id="nima" type="hidden" value="222"></input>
+
+{% for i in res.a %}
+		<div class="panel panel-default">
+		<div class="panel-heading">{{ i.0 }} . 歌名 : {{ i.5 }}</div>
+		
+		<ul class="list-group">
+		
+		<form action="/detail_page/" method="post">{% csrf_token %}
+		<li class="list-group-item">歌手 : </span>{{ i.2 }}</li>
+		<li class="list-group-item">
+		    <span>简介 : </span>
 		{% if i.12|length >= 200 %}
 			{{ i.12|slice:"200" }}......  
 		{% else %}
 			{{ i.12 }}
 		{% endif %}
-
+		</li>
 		<input name = "a" id="oid" type="hidden" value = {{i.0}}></input>
-		<input type="submit" id="get_more" value = "get more ...."></a>
+		<input name = "b" id="hello" type="hidden" value = {{res.b}}></input>
+		<button type="submit" id="get_more" value = "get more ...." class="btn btn-default navbar-btn">get more ...</button>
+		</ul>
 		</form>
-		<!-- <input type="button" value="阅读更多信息" id="temp_id" onclick="get_oid();" data_id={{i.0}}></input> -->
-	
+		</table>
+
 {{" " | escape|linebreaks}}
 {% endfor %}
+
+<script type="text/javascript"> 
+
+$(document).ready(function(){
+	$("#fuck").click(function(){
+        	var fileData = $('#nima').val();
+        	//var fileData = {{ res|safe }};
+		console.log(fileData);
+		return;
+        	$.get("/final_page/",{'oid':a}, function(ret){
+        	    $('#tingyun').html(ret)
+        })
+      });
+  });
+</script>
+
+<!--
+    {% if res.a.has_previous %}
+        <a href="page={{ res.previous_page_number}}">上一页</a>
+    {% endif %}
+
+
+    {% if res.a.has_next %}
+        <a href="page={{ res.next_page_number}}">下一页</a>
+    {% endif %}
+    -->
+    
+</div>
+
 
 </p>
 <!--

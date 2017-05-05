@@ -11,23 +11,25 @@ from django.db import models
 
 
 
+
+
 class Copyright(models.Model):
-    field_id = models.CharField(db_column='_id', max_length=50, blank=True, null=True)  # Field renamed because it started with '_'.
-    company_info = models.CharField(max_length=20, blank=True, null=True)
+    company_info = models.TextField(blank=True, null=True)
     artist_info = models.CharField(max_length=100, blank=True, null=True)
-    site_name = models.CharField(max_length=10, blank=True, null=True)
-    language = models.CharField(max_length=10, blank=True, null=True)
+    site_name = models.CharField(max_length=30, blank=True, null=True)
+    language = models.CharField(max_length=20, blank=True, null=True)
     song_info = models.CharField(max_length=30, blank=True, null=True)
-    url = models.CharField(max_length=40, blank=True, null=True)
+    url = models.CharField(max_length=500, blank=True, null=True)
     company = models.CharField(max_length=30, blank=True, null=True)
-    company_pic = models.CharField(max_length=50, blank=True, null=True)
+    company_pic = models.CharField(max_length=300, blank=True, null=True)
     classify = models.CharField(max_length=40, blank=True, null=True)
-    date = models.CharField(max_length=20, blank=True, null=True)
-    album_info = models.CharField(max_length=30, blank=True, null=True)
-    desc = models.CharField(max_length=500, blank=True, null=True)
+    date = models.CharField(max_length=50, blank=True, null=True)
+    album_info = models.CharField(max_length=50, blank=True, null=True)
+    album_desc = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'copyright'
+
 
 

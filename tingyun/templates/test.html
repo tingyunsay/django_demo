@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap.min.css' %}" >
+<link rel="stylesheet" href="{% static 'tingyun/css/bootstrap-theme.min.css' %}">
+<link rel="stylesheet" href="{% static 'tingyun/css/mycss.css' %}"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>show db</title>
+</head>
+<body>
+
+<p class="navbar-text">Signed in as Mark Otto</p>
+
+
+
+<br><br>
+<br><br><br><br>
+
+<div>
+
+</div>
+
+
+    {% for i in res  %}
+	{{ i }}
+        <br><br>
+    {% endfor %}
+
+    <br><br>
+    {# 存在上一页 #}
+    {% if res.has_previous %}
+        <a href="?page={{ res.previous_page_number}}">上一页</a>
+    {% endif %}
+
+    {# 存在下一页 #}
+    {% if res.has_next %}
+        <a href="?page={{ res.next_page_number}}">下一页</a>
+    {% endif %}
+
+</body>
+
